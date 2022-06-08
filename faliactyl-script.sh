@@ -193,11 +193,12 @@ finish_update() {
    mv "${now}.tar.gz" /var/www/faliactyl-backup
    rm -R /var/www/faliactyl/
    file_install
+}
 cancell() {
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
     echo "Closing Script, Please Wait"
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
     sudo kill
 }
-}
+
 install_options
