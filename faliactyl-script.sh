@@ -83,9 +83,9 @@ settings_configuration() {
     echo "Starting Settings Configuration."
     echo "Go to Faliactyl docs for more information about the settings."
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
-    cd /var/www/faliactyl/
+    cd /var/www/Faliactyl/
     file=settings.json
-    echo "What is the web port? [8080] (This is the port faliactyl will run on)"
+    echo "What is the web port? [8080] (This is the port Faliactyl will run on)"
     read WEBPORT
     echo "What is the web secret? (This will be used for logins)"
     read WEB_SECRET
@@ -136,7 +136,7 @@ reverseproxy_configuration() {
    sudo apt install -y python3-certbot-nginx
    sudo wget -O /etc/nginx/conf.d/faliactyl.conf 
    sudo apt-get install jq 
-   port=$(jq -r '.["website"]["port"]' /var/www/faliactyl/settings.json)
+   port=$(jq -r '.["website"]["port"]' /var/www/Faliactyl/settings.json)
    sed -i 's/PORT/'$port'/g' /etc/nginx/conf.d/faliactyl.conf
    sed -i 's/DOMAIN/'$DOMAIN'/g' /etc/nginx/conf.d/faliactyl.conf
    sudo nginx -t
@@ -158,7 +158,7 @@ reverseproxy_configuration() {
 }
 update_check() {
     latest=$(wget  -q -O -)
-    version=$(grep -Po '"version":.*?[^\\]",' /var/www/faliactyl/settings.json) 
+    version=$(grep -Po '"version":.*?[^\\]",' /var/www/Faliactyl/settings.json) 
 
     if [ "$latest" =  "$version" ]; then
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
@@ -189,10 +189,14 @@ update_check() {
     fi
 }
 finish_update() {
-   tar -czvf "${now}.tar.gz" /var/www/faliactyl/
+   tar -czvf "${now}.tar.gz" /var/www/Faliactyl/
    mv "${now}.tar.gz" /var/www/faliactyl-backup
-   rm -R /var/www/faliactyl/
+   rm -R /var/www/Faliactyl/
    file_install
+}
+remove() {
+    cd var/www/
+    rm -f Faliactyl
 }
 cancell() {
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
