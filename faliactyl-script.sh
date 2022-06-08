@@ -38,13 +38,13 @@ install_options(){
         3 ) installoption=3
             file_install
             ;;
-        4 ) installoption=6
+        4 ) installoption=4
             update_check
             ;;
-        5 ) installoption=7
+        5 ) installoption=5
             remove
             ;;
-        6 ) installoption=8
+        6 ) installoption=6
             cancell
             ;;
          
