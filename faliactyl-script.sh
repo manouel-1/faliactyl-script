@@ -21,8 +21,7 @@ install_options(){
     echo "(2) Install The dependencies"
     echo "(3) Install The Files"
     echo "(4) Check for updates"
-    echo "(5) Uninstall Faliactyl"
-    echo "(6) Exit"
+    echo "(5) Exit"
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
     read choice
     case $choice in
@@ -41,10 +40,7 @@ install_options(){
         4 ) installoption=4
             update_check
             ;;
-        5 ) installoption=5
-            remove
-            ;;
-        6 ) installoption=6
+        6 ) installoption=5
             cancell
             ;;
          
