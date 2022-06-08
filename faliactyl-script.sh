@@ -195,7 +195,7 @@ finish_update() {
    file_install
 }
 remove() {
-    cd var/www/
+    cd /var/www/
     rm -f Faliactyl
 }
 cancell() {
