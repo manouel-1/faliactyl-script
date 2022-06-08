@@ -40,7 +40,7 @@ install_options(){
         4 ) installoption=4
             update_check
             ;;
-        6 ) installoption=5
+        5 ) installoption=5
             cancell
             ;;
          
