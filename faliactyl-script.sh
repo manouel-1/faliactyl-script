@@ -45,7 +45,7 @@ install_options(){
             remove
             ;;
         6 ) installoption=8
-            cancel
+            cancell
             ;;
          
         * ) output "You did not enter a valid selection."
@@ -71,7 +71,7 @@ file_install() {
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
     cd /var/www/
     sudo git clone https://github.com/Hyricon-Development/Faliactyl.git
-    cd faliactyl
+    cd Faliactyl
     sudo npm install
     sudo npm install pm2 -g
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
@@ -134,7 +134,7 @@ reverseproxy_configuration() {
    apt install nginx
    sudo apt install certbot
    sudo apt install -y python3-certbot-nginx
-   sudo wget https://raw.githubusercontent.com/manouel-1/faliactyl-script/main/assets/faliactyl.conf?token=GHSAT0AAAAAABVKRUZMMW4MMM6CC3BFDCNAYVA5JOQ -O /etc/nginx/conf.d/faliactyl.conf 
+   sudo wget -O /etc/nginx/conf.d/faliactyl.conf 
    sudo apt-get install jq 
    port=$(jq -r '.["website"]["port"]' /var/www/faliactyl/settings.json)
    sed -i 's/PORT/'$port'/g' /etc/nginx/conf.d/faliactyl.conf
@@ -193,7 +193,7 @@ finish_update() {
    mv "${now}.tar.gz" /var/www/faliactyl-backup
    rm -R /var/www/faliactyl/
    file_install
-cancel() {
+cancell() {
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
     echo "Closing Script, Please Wait"
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
