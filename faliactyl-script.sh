@@ -10,8 +10,6 @@ set -e
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
     echo "© Copyright 2022 / Script Maded by Hyricon Deveploment Team."
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
-    echo "This Script support Popular OS (Ubuntu, Debian and CentOs)"
-    echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
 
 
 install_options(){
@@ -20,9 +18,8 @@ install_options(){
     echo "(1) Install Full Faliactyl"
     echo "(2) Install The dependencies"
     echo "(3) Install The Files"
-    echo "(4) Check for updates"
-    echo "(5) Uninstall Faliactyl"
-    echo "(6) Exit"
+    echo "(4) Uninstall Faliactyl"
+    echo "(5) Exit"
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
     read choice
     case $choice in
@@ -39,12 +36,9 @@ install_options(){
             file_install
             ;;
         4 ) installoption=4
-            update_check
-            ;;
-        5 ) installoption=5
             remove
             ;;
-        6 ) installoption=6
+        5 ) installoption=5
             cancell
             ;;
          
@@ -57,7 +51,8 @@ dependercy_install() {
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
     echo "Starting Dependercy install, Only wait"
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
-    sudo apt-get install nodejs
+    curl -fsSL https://deb.nodesource.com/setup_14.x | sudo bash -
+    sudo apt install nodejs
     sudo apt install npm
     sudo apt-get install git
     sudo apt update
@@ -69,6 +64,7 @@ file_install() {
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
     echo "Starting File install."
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
+    mkdir /var/www -p
     cd /var/www/
     sudo git clone https://github.com/Hyricon-Development/Faliactyl.git
     cd Faliactyl
@@ -103,7 +99,7 @@ settings_configuration() {
     read DOAUTH_CALLBACKPATH
     echo "Prompt [TRUE/FALSE] (When set to true users wont have to relogin after a session)"
     read DOAUTH_PROMPT
-    sed -i -e 's/"port":.*/"port": '$WEBPORT',/' -e 's/"secret":.*/"secret": "'$WEB_SECRET'"/' -e 's/"domain":.*/"domain": "'$PTERODACTYL_DOMAIN'",/' -e 's/"key":.*/"key": "'$PTERODACTYL_KEY'"/' -e 's/"id":.*/"id": "'$DOAUTH_ID'",/' -e 's/"link":.*/"link": "'$DOAUTH_LINK'",/' -e 's/"path":.*/"path": "'$DOAUTH_CALLBACKPATH'",/' -e 's/"prompt":.*/"prompt": '$DOAUTH_PROMPT'/' -e '0,/"secret":.*/! {0,/"secret":.*/ s/"secret":.*/"secret": "'$DOAUTH_SECRET'",/}' $file
+    sed -i -esed -i -e 's/"port":.*/"port": '"$WEBPORT"',/' -e 's/"secret":.*/"secret": "'"$WEB_SECRET"'"/' -e 's/"domain":.*/"domain": "'"$PTERODACTYL_DOMAIN"'",/' -e 's/"key":.*/"key": "'"$PTERODACTYL_KEY"'"/' -e 's/"id":.*/"id": "'"$DOAUTH_ID"'",/' -e 's/"link":.*/"link": "'"$DOAUTH_LINK"'",/' -e 's/"path":.*/"path": "'"$DOAUTH_CALLBACKPATH"'",/' -e 's/"prompt":.*/"prompt": '"$DOAUTH_PROMPT"'/' -e '0,/"secret":.*/! {0,/"secret":.*/ s/"secret":.*/"secret": "'"$DOAUTH_SECRET"'",/}' $file 's/"port":.*/"port": '$WEBPORT',/' -e 's/"secret":.*/"secret": "'$WEB_SECRET'"/' -e 's/"domain":.*/"domain": "'$PTERODACTYL_DOMAIN'",/' -e 's/"key":.*/"key": "'$PTERODACTYL_KEY'"/' -e 's/"id":.*/"id": "'$DOAUTH_ID'",/' -e 's/"link":.*/"link": "'$DOAUTH_LINK'",/' -e 's/"path":.*/"path": "'$DOAUTH_CALLBACKPATH'",/' -e 's/"prompt":.*/"prompt": '$DOAUTH_PROMPT'/' -e '0,/"secret":.*/! {0,/"secret":.*/ s/"secret":.*/"secret": "'$DOAUTH_SECRET'",/}' $file
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
     echo "Configuration Settings Completed!"
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
@@ -117,13 +113,13 @@ reverseproxy_configuration() {
    read WEBSERVER
    echo "Protocol Type [HTTP]"
    read PROTOCOL
-   if [ $PROTOCOL != "HTTP" ]; then
+      if [ "$PROTOCOL" != "HTTP" ]; then
    echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
    echo "HTTP is currently only supported on the install script."
    echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
    return
    fi
-   if [ $WEBSERVER != "NGINX" ]; then
+   if [ "$WEBSERVER" != "NGINX" ]; then
    echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
    echo "Aborted, only Nginx is currently supported for the reverse proxy."
    echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
@@ -134,10 +130,10 @@ reverseproxy_configuration() {
    apt install nginx
    sudo apt install certbot
    sudo apt install -y python3-certbot-nginx
-   sudo wget https://raw.githubusercontent.com/manouel-1/faliactyl-script/main/assets/faliactyl.conf -O /etc/nginx/conf.d/faliactyl.conf 
+   sudo wget -O /etc/nginx/conf.d/faliactyl.conf 
    sudo apt-get install jq 
    port=$(jq -r '.["website"]["port"]' /var/www/Faliactyl/settings.json)
-   sed -i 's/PORT/'$port'/g' /etc/nginx/conf.d/faliactyl.conf
+   sed -i 's/PORT/'"$PORT"'/g' /etc/nginx/conf.d/faliactyl.conf
    sed -i 's/DOMAIN/'$DOMAIN'/g' /etc/nginx/conf.d/faliactyl.conf
    sudo nginx -t
    sudo nginx -s reload
@@ -150,49 +146,11 @@ reverseproxy_configuration() {
    echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
    echo "Note: if it does not say OK in the line, an error has occurred and you should try again or get help in the faliactyl Discord Server."
    echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
-   if [ $WEBSERVER = "APACHE" ]; then
+   if [ "$WEBSERVER" = "APACHE" ]; then
    echo "Apache isn't currently supported with the install script."
    echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
    return
    fi
-}
-update_check() {
-    latest=$(wget  -q -O -)
-    version=$(grep -Po '"version":.*?[^\\]",' /var/www/Faliactyl/settings.json) 
-
-    if [ "$latest" =  "$version" ]; then
-    echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
-    echo "You're running the latest version of faliactyl."
-    echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
-    else 
-    echo "You're running an outdated version of Faliactyl."
-    echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
-    echo "Would you like to update to the latest version? [Y/N]"
-    echo "Bu updating your files will be backed up in /var/www/faliactyl-backup/"
-    read UPDATE_OPTION
-    echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
-    if [ "$UPDATE_OPTION" = "Y" ]; then
-    var=`date +"%FORMAT_STRING"`
-    now=`date +"%m_%d_%Y"`
-    now=`date +"%Y-%m-%d"`
-    if [[ ! -e /var/www/faliactyl-backup/ ]]; then
-    mkdir /var/www/faliactyl-backup/
-    finish_update
-    elif [[ ! -d $dir ]]; then
-    finish_update
-    fi
-    else
-    echo "Update Aborted"
-    echo "Restart the script if this was a misstake."
-    echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
-    fi
-    fi
-}
-finish_update() {
-   tar -czvf "${now}.tar.gz" /var/www/Faliactyl/
-   mv "${now}.tar.gz" /var/www/faliactyl-backup
-   rm -R /var/www/Faliactyl/
-   file_install
 }
 remove() {
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
