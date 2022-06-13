@@ -21,7 +21,7 @@ install_options(){
     echo "(4) Uninstall Faliactyl"
     echo "(5) Exit"
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
-    read choice
+    read -r choice
     case $choice in
         1 ) installoption=1
             dependercy_install
@@ -82,23 +82,23 @@ settings_configuration() {
     cd /var/www/Faliactyl/
     file=settings.json
     echo "What is the web port? [8080] (This is the port Faliactyl will run on)"
-    read WEBPORT
+    read -r WEBPORT
     echo "What is the web secret? (This will be used for logins)"
-    read WEB_SECRET
+    read -r WEB_SECRET
     echo "What is the pterodactyl domain? [panel.yourdomain.com]"
-    read PTERODACTYL_DOMAIN
+    read -r PTERODACTYL_DOMAIN
     echo "What is the pterodactyl key?"
-    read PTERODACTYL_KEY
+    read -r PTERODACTYL_KEY
     echo "What is the Discord Oauth2 ID?"
-    read DOAUTH_ID
+    read -r DOAUTH_ID
     echo "What is the Discord Oauth2 Secret?"
-    read DOAUTH_SECRET
+    read -r DOAUTH_SECRET
     echo "What is the Discord Oauth2 Link?"
-    read DOAUTH_LINK
+    read -r DOAUTH_LINK
     echo "What is the Callback path? [callback]" 
-    read DOAUTH_CALLBACKPATH
+    read -r DOAUTH_CALLBACKPATH
     echo "Prompt [TRUE/FALSE] (When set to true users wont have to relogin after a session)"
-    read DOAUTH_PROMPT
+    read -r DOAUTH_PROMPT
     sed -i -esed -i -e 's/"port":.*/"port": '"$WEBPORT"',/' -e 's/"secret":.*/"secret": "'"$WEB_SECRET"'"/' -e 's/"domain":.*/"domain": "'"$PTERODACTYL_DOMAIN"'",/' -e 's/"key":.*/"key": "'"$PTERODACTYL_KEY"'"/' -e 's/"id":.*/"id": "'"$DOAUTH_ID"'",/' -e 's/"link":.*/"link": "'"$DOAUTH_LINK"'",/' -e 's/"path":.*/"path": "'"$DOAUTH_CALLBACKPATH"'",/' -e 's/"prompt":.*/"prompt": '"$DOAUTH_PROMPT"'/' -e '0,/"secret":.*/! {0,/"secret":.*/ s/"secret":.*/"secret": "'"$DOAUTH_SECRET"'",/}' $file 's/"port":.*/"port": '"$WEBPORT"',/' -e 's/"secret":.*/"secret": "'"$WEB_SECRET"'"/' -e 's/"domain":.*/"domain": "'"$PTERODACTYL_DOMAIN"'",/' -e 's/"key":.*/"key": "'"$PTERODACTYL_KEY"'"/' -e 's/"id":.*/"id": "'"$DOAUTH_ID"'",/' -e 's/"link":.*/"link": "'"$DOAUTH_LINK"'",/' -e 's/"path":.*/"path": "'"$DOAUTH_CALLBACKPATH"'",/' -e 's/"prompt":.*/"prompt": '"$DOAUTH_PROMPT"'/' -e '0,/"secret":.*/! {0,/"secret":.*/ s/"secret":.*/"secret": "'"$DOAUTH_SECRET"'",/}' $file    echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
     echo "Configuration Settings Completed!"
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
