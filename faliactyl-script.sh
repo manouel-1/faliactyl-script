@@ -131,7 +131,7 @@ reverseproxy_configuration() {
    sudo apt install -y python3-certbot-nginx
    sudo wget -O /etc/nginx/conf.d/faliactyl.conf 
    sudo apt-get install jq 
-   port=$(jq -r '.["website"]["port"]' /var/www/Faliactyl/settings.json)
+   PORT=$(jq -r '.["website"]["port"]' /var/www/Faliactyl/settings.json)
    sed -i 's/PORT/'"$PORT"'/g' /etc/nginx/conf.d/faliactyl.conf
    sed -i 's/DOMAIN/'"$DOMAIN"'/g' /etc/nginx/conf.d/faliactyl.conf
    sudo nginx -t
