@@ -39,7 +39,7 @@ install_options(){
             remove
             ;;
         5 ) installoption=5
-            cancell
+            cancel
             ;;
          
         * ) output "You did not enter a valid selection."
@@ -99,8 +99,7 @@ settings_configuration() {
     read DOAUTH_CALLBACKPATH
     echo "Prompt [TRUE/FALSE] (When set to true users wont have to relogin after a session)"
     read DOAUTH_PROMPT
-    sed -i -esed -i -e 's/"port":.*/"port": '"$WEBPORT"',/' -e 's/"secret":.*/"secret": "'"$WEB_SECRET"'"/' -e 's/"domain":.*/"domain": "'"$PTERODACTYL_DOMAIN"'",/' -e 's/"key":.*/"key": "'"$PTERODACTYL_KEY"'"/' -e 's/"id":.*/"id": "'"$DOAUTH_ID"'",/' -e 's/"link":.*/"link": "'"$DOAUTH_LINK"'",/' -e 's/"path":.*/"path": "'"$DOAUTH_CALLBACKPATH"'",/' -e 's/"prompt":.*/"prompt": '"$DOAUTH_PROMPT"'/' -e '0,/"secret":.*/! {0,/"secret":.*/ s/"secret":.*/"secret": "'"$DOAUTH_SECRET"'",/}' $file 's/"port":.*/"port": '$WEBPORT',/' -e 's/"secret":.*/"secret": "'$WEB_SECRET'"/' -e 's/"domain":.*/"domain": "'$PTERODACTYL_DOMAIN'",/' -e 's/"key":.*/"key": "'$PTERODACTYL_KEY'"/' -e 's/"id":.*/"id": "'$DOAUTH_ID'",/' -e 's/"link":.*/"link": "'$DOAUTH_LINK'",/' -e 's/"path":.*/"path": "'$DOAUTH_CALLBACKPATH'",/' -e 's/"prompt":.*/"prompt": '$DOAUTH_PROMPT'/' -e '0,/"secret":.*/! {0,/"secret":.*/ s/"secret":.*/"secret": "'$DOAUTH_SECRET'",/}' $file
-    echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
+    sed -i -esed -i -e 's/"port":.*/"port": '"$WEBPORT"',/' -e 's/"secret":.*/"secret": "'"$WEB_SECRET"'"/' -e 's/"domain":.*/"domain": "'"$PTERODACTYL_DOMAIN"'",/' -e 's/"key":.*/"key": "'"$PTERODACTYL_KEY"'"/' -e 's/"id":.*/"id": "'"$DOAUTH_ID"'",/' -e 's/"link":.*/"link": "'"$DOAUTH_LINK"'",/' -e 's/"path":.*/"path": "'"$DOAUTH_CALLBACKPATH"'",/' -e 's/"prompt":.*/"prompt": '"$DOAUTH_PROMPT"'/' -e '0,/"secret":.*/! {0,/"secret":.*/ s/"secret":.*/"secret": "'"$DOAUTH_SECRET"'",/}' $file 's/"port":.*/"port": '"$WEBPORT"',/' -e 's/"secret":.*/"secret": "'"$WEB_SECRET"'"/' -e 's/"domain":.*/"domain": "'"$PTERODACTYL_DOMAIN"'",/' -e 's/"key":.*/"key": "'"$PTERODACTYL_KEY"'"/' -e 's/"id":.*/"id": "'"$DOAUTH_ID"'",/' -e 's/"link":.*/"link": "'"$DOAUTH_LINK"'",/' -e 's/"path":.*/"path": "'"$DOAUTH_CALLBACKPATH"'",/' -e 's/"prompt":.*/"prompt": '"$DOAUTH_PROMPT"'/' -e '0,/"secret":.*/! {0,/"secret":.*/ s/"secret":.*/"secret": "'"$DOAUTH_SECRET"'",/}' $file    echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
     echo "Configuration Settings Completed!"
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
 }
@@ -162,7 +161,7 @@ remove() {
     echo "finished"
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
 }
-cancell() {
+cancel() {
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
     echo "Closing Script, Please Wait"
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
