@@ -109,9 +109,9 @@ reverseproxy_configuration() {
     echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
 
    echo "Select your webserver [NGINX]"
-   read WEBSERVER
+   read -r WEBSERVER
    echo "Protocol Type [HTTP]"
-   read PROTOCOL
+   read -r PROTOCOL
       if [ "$PROTOCOL" != "HTTP" ]; then
    echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
    echo "HTTP is currently only supported on the install script."
@@ -125,7 +125,7 @@ reverseproxy_configuration() {
    return
    fi
    echo "What is your domain? [example.com]"
-   read DOMAIN
+   read -r DOMAIN
    apt install nginx
    sudo apt install certbot
    sudo apt install -y python3-certbot-nginx
